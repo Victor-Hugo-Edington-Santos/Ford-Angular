@@ -1,0 +1,151 @@
+<!-- Figura 3 - Protótipo das páginas de Dashboards -->
+<div class="dashboard-page">
+
+  <!-- Barra superior -->
+  <nav class="topbar">
+    <a routerLink="/home" class="topbar-link">
+      <img src="assets/img/icon-home-white.png" alt="" class="topbar-icon" />
+      Home
+    </a>
+    <span class="topbar-title">Dashboard FORD</span>
+    <span class="topbar-spacer"></span>
+  </nav>
+
+  <div class="container-fluid px-4 pb-4 pt-3">
+
+    <div class="row g-3 align-items-stretch">
+
+      <!-- Passo 8: cartão com seleção do modelo do veículo -->
+      <div class="col-6 col-lg-3">
+        <div class="card card-ford h-100">
+          <span class="card-label">Veículo</span>
+
+          <!-- Dropdown customizado com visual de <select> -->
+          <div class="select-ford" (click)="$event.stopPropagation()">
+            <button
+              type="button"
+              class="btn select-ford-toggle"
+              [class.aberto]="dropdownAberto"
+              (click)="toggleDropdown($event)"
+              [attr.aria-expanded]="dropdownAberto"
+            >
+              <span class="select-ford-valor">
+                {{ selectedVehicle ? selectedVehicle.vehicle : 'Selecione' }}
+              </span>
+              <svg class="select-ford-seta" width="10" height="10" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M3 5.5l5 5 5-5H3z" fill="currentColor" />
+              </svg>
+            </button>
+
+            <ul class="select-ford-lista list-unstyled" *ngIf="dropdownAberto">
+              <li
+                *ngFor="let v of vehicles"
+                class="select-ford-opcao"
+                [class.selecionada]="selectedVehicle?.id === v.id"
+                (click)="selectVehicle(v)"
+              >
+                {{ v.vehicle }}
+              </li>
+              <li class="select-ford-vazio" *ngIf="!vehicles.length">
+                Nenhum modelo disponível.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 9: três cartões atualizados conforme o modelo selecionado -->
+      <div class="col-6 col-lg-3">
+        <div class="card card-ford h-100">
+          <span class="card-label">Total de Vendas</span>
+          <span class="card-valor">{{ totalVendas }}</span>
+          <span class="card-unidade">Und</span>
+        </div>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <div class="card card-ford h-100">
+          <span class="card-label">Conectados</span>
+          <span class="card-valor">{{ conectados }}</span>
+          <span class="card-unidade">Und</span>
+        </div>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <div class="card card-ford h-100">
+          <span class="card-label">Update Software</span>
+          <span class="card-valor">{{ softwareAtualizado }}</span>
+          <span class="card-unidade">Und</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passo 10: imagem do veículo selecionado, ao centro da página -->
+    <div class="vehicle-wrapper">
+      <img
+        *ngIf="selectedVehicle"
+        [src]="selectedVehicle.img"
+        [alt]="selectedVehicle.vehicle"
+        class="vehicle-img"
+      />
+    </div>
+
+    <!-- Passo 11: tabela com busca por código do veículo (VIN) -->
+    <div class="tabela-ford">
+      <table class="table table-bordered text-center align-middle mb-0">
+        <thead>
+          <tr>
+            <th class="th-vin">Código - Vin</th>
+            <th>Odômetro</th>
+            <th>Nível de Combustível</th>
+            <th>Status</th>
+            <th>Lat.</th>
+            <th>Long.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-vin">
+              <input
+                type="text"
+                class="form-control form-control-sm input-vin"
+                placeholder="2FRHDUYS2Y63NHD22454"
+                name="vin"
+                [(ngModel)]="vin"
+                (ngModelChange)="onVinChange($event)"
+                (keyup.enter)="buscarVeiculo()"
+              />
+              <button type="button" class="btn btn-primary btn-sm btn-vin" (click)="buscarVeiculo()" aria-label="Buscar">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                  <path d="M11.74 10.34h-.68l-.24-.23a5.57 5.57 0 101.45-1.45l.23.24v.68l4.28 4.27-1.28 1.28-4.27-4.28zm-5.14 0a3.86 3.86 0 110-7.72 3.86 3.86 0 010 7.72z"/>
+                </svg>
+              </button>
+            </td>
+            <td>{{ vehicleData ? vehicleData.odometro + ' Km' : '—' }}</td>
+            <td>{{ vehicleData ? vehicleData.nivelCombustivel + ' %' : '—' }}</td>
+            <td>{{ vehicleData ? vehicleData.status : '—' }}</td>
+            <td>{{ vehicleData ? vehicleData.lat : '—' }}</td>
+            <td>{{ vehicleData ? vehicleData.long : '—' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="aviso-vin" *ngIf="buscando">Buscando...</p>
+      <p class="erro-vin" *ngIf="erroVin">{{ erroVin }}</p>
+    </div>
+
+    <!-- Códigos VIN cadastrados, sempre visíveis para seleção rápida -->
+    <div class="vin-atalhos" *ngIf="vinOptions.length">
+      <span class="vin-atalhos-label">Códigos cadastrados:</span>
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm vin-chip"
+        *ngFor="let codigo of vinOptions"
+        [class.ativo]="codigo === vin"
+        (click)="onVinSelecionado(codigo)"
+      >
+        {{ codigo }}
+      </button>
+    </div>
+  </div>
+</div>

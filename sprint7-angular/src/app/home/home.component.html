@@ -1,0 +1,57 @@
+<!-- Figura 2 - Protótipo da página de home -->
+<div class="home-page" [class.menu-aberto]="sidebarAberta">
+
+  <!-- Ícone hambúrguer: único elemento visível no estado recolhido -->
+  <button
+    type="button"
+    class="btn hamburger-btn"
+    (click)="toggleSidebar()"
+    [attr.aria-expanded]="sidebarAberta"
+    aria-label="Abrir/fechar menu"
+  >
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>
+  </button>
+
+  <!-- Sidebar (Passo 5 e Passo 7): logo Ford, Home, Dashboard e logout -->
+  <nav class="sidebar" [class.sidebar-aberta]="sidebarAberta">
+    <div class="sidebar-header">
+      <img src="assets/img/ford.png" alt="Ford" class="sidebar-logo" />
+    </div>
+
+    <ul class="sidebar-nav list-unstyled">
+      <li>
+        <a routerLink="/home" class="sidebar-link ativo">
+          <img src="assets/img/icon-home-white.png" alt="" class="sidebar-icon" />
+          Home
+        </a>
+      </li>
+      <li>
+        <!-- Passo 7: link para a página dashboard -->
+        <a routerLink="/dashboard" class="sidebar-link">Dashboard</a>
+      </li>
+    </ul>
+
+    <!-- Passo 5: item de logout -->
+    <a href="javascript:void(0)" (click)="sair()" class="sidebar-link sidebar-logout">
+      <img src="assets/img/icon-logout-white.png" alt="" class="sidebar-icon" />
+      Logout
+    </a>
+  </nav>
+
+  <!-- Passo 6: imagem de fundo -->
+  <div class="home-content">
+    <div class="home-overlay"></div>
+
+    <!-- Passo 4: cartão de boas-vindas sobreposto à imagem de fundo -->
+    <div class="card welcome-card">
+      <span class="welcome-title">Sistema de dados FORD</span>
+
+      <p class="welcome-text" *ngIf="usuario">Seja bem vindo(a), {{ usuario.nome }}!</p>
+      <p class="welcome-text" *ngIf="!usuario">Seja bem vindo(a)!</p>
+
+      <a routerLink="/dashboard" class="btn btn-link p-0 welcome-link">Ir para o Dashboard</a>
+    </div>
+  </div>
+</div>

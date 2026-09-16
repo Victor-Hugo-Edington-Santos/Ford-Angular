@@ -1,0 +1,309 @@
+/* ============================================================
+   DASHBOARD - Figura 3 do protótipo
+   ============================================================ */
+
+:host {
+  display: block;
+  --ford-azul: #10389e;
+  --ford-azul-escuro: #0a2c52;
+  --borda: #d5d9e0;
+}
+
+.dashboard-page {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* ---------- Barra superior ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 24px;
+  background-color: var(--ford-azul-escuro);
+}
+
+.topbar-link,
+.topbar-spacer {
+  flex: 0 0 90px;
+}
+
+.topbar-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.topbar-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.topbar-link:hover {
+  color: #9dc4ff;
+}
+
+.topbar-title {
+  flex: 1;
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* ---------- Cartões ---------- */
+
+.card-ford {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px;
+  background-color: #ffffff;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+  min-height: 92px;
+}
+
+.card-label {
+  font-size: 0.78rem;
+  color: #55585d;
+  margin-bottom: 6px;
+}
+
+.card-valor {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ford-azul);
+}
+
+.card-unidade {
+  font-size: 0.7rem;
+  color: #9aa0a6;
+}
+
+/* ---------- Dropdown do veículo (Passo 8) ---------- */
+
+.select-ford {
+  position: relative;
+}
+
+.select-ford-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  color: #33363a;
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid var(--borda);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.select-ford-toggle:hover {
+  border-color: #b7bdc6;
+}
+
+.select-ford-toggle.aberto {
+  border-color: var(--ford-azul);
+  box-shadow: 0 0 0 2px rgba(16, 56, 158, 0.12);
+}
+
+.select-ford-valor {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.select-ford-seta {
+  flex: 0 0 auto;
+  color: #6c757d;
+  transition: transform 0.15s ease;
+}
+
+.select-ford-toggle.aberto .select-ford-seta {
+  transform: rotate(180deg);
+}
+
+.select-ford-lista {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  max-height: 210px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border: 1px solid var(--borda);
+  border-radius: 3px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.select-ford-opcao {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  color: #33363a;
+  cursor: pointer;
+}
+
+.select-ford-opcao:hover {
+  background-color: #eef2fb;
+}
+
+/* Item selecionado destacado, como na Figura 3 */
+.select-ford-opcao.selecionada {
+  background-color: var(--ford-azul);
+  color: #ffffff;
+}
+
+.select-ford-vazio {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  color: #9aa0a6;
+}
+
+/* ---------- Imagem do veículo (Passo 10) ---------- */
+
+.vehicle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 210px;
+  margin: 18px 0 22px;
+}
+
+.vehicle-img {
+  max-width: 420px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ---------- Tabela (Passo 11) ---------- */
+
+.tabela-ford {
+  border: 1px solid var(--borda);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.tabela-ford .table {
+  margin-bottom: 0;
+}
+
+.tabela-ford thead {
+  background-color: var(--ford-azul);
+}
+
+.tabela-ford th {
+  padding: 7px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffffff;
+  border-color: var(--ford-azul);
+}
+
+.tabela-ford tbody {
+  border-bottom: 3px solid var(--ford-azul-escuro);
+}
+
+.tabela-ford td {
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  color: #33363a;
+  vertical-align: middle;
+}
+
+.td-vin {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.input-vin {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.72rem;
+  font-family: monospace;
+}
+
+.btn-vin {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+}
+
+.erro-vin {
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  color: #c0392b;
+  background-color: #fdf1f0;
+}
+
+.aviso-vin {
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  color: #55585d;
+  background-color: #f5f7fa;
+}
+
+/* ---------- Atalhos de VIN cadastrados ---------- */
+
+.vin-atalhos {
+  margin-top: 14px;
+}
+
+.vin-atalhos-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.75rem;
+  color: #9aa0a6;
+}
+
+.vin-chip {
+  margin: 0 6px 6px 0;
+  padding: 3px 8px;
+  font-family: monospace;
+  font-size: 0.72rem;
+  color: #33363a;
+  background-color: #ffffff;
+  border: 1px solid var(--borda);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.vin-chip:hover {
+  border-color: #b7bdc6;
+}
+
+.vin-chip.ativo {
+  background-color: var(--ford-azul);
+  border-color: var(--ford-azul);
+  color: #ffffff;
+}
+
+/* ---------- Responsivo ---------- */
+
+@media (max-width: 991px) {
+  .tabela-ford th,
+  .tabela-ford td {
+    font-size: 0.72rem;
+    padding: 6px 8px;
+  }
+
+  .vehicle-img {
+    max-width: 300px;
+  }
+}

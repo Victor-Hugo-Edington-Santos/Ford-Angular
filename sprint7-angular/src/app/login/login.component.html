@@ -1,0 +1,76 @@
+<div class="login-page d-flex">
+  <div class="login-image d-none d-md-flex align-items-center justify-content-center">
+    <img src="assets/img/ranger.png" alt="Ford Ranger" class="car-img" />
+  </div>
+
+  <div class="login-form d-flex align-items-center justify-content-center">
+    <div class="form-card p-4 p-md-5">
+      <div class="text-center mb-4">
+        <img src="assets/img/ford.png" alt="Ford" class="ford-logo" />
+      </div>
+
+      <h2 class="text-center mb-4 titulo-boas-vindas">Boas-vindas</h2>
+
+      <form (ngSubmit)="entrar()" #loginForm="ngForm">
+        <div class="input-group mb-3">
+          <span class="input-group-text bg-white">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="#6c757d">
+              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 1c-2.7 0-6 1.35-6 3.5V14h12v-1.5C14 10.35 10.7 9 8 9Z"/>
+            </svg>
+          </span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Insira seu usuário"
+            name="nome"
+            [(ngModel)]="nome"
+          />
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text bg-white">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="#6c757d">
+              <path d="M8 1a3 3 0 0 0-3 3v3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3Zm2 6H6V4a2 2 0 1 1 4 0v3Z"/>
+            </svg>
+          </span>
+          <input
+            [type]="mostrarSenha ? 'text' : 'password'"
+            class="form-control"
+            placeholder="Insira sua senha"
+            name="senha"
+            [(ngModel)]="senha"
+          />
+          <span
+            class="input-group-text bg-white toggle-senha"
+            (click)="mostrarSenha = !mostrarSenha"
+          >
+            <svg *ngIf="!mostrarSenha" width="16" height="16" viewBox="0 0 16 16" fill="#6c757d">
+              <path d="M8 3C4.5 3 1.5 5.1 0 8c1.5 2.9 4.5 5 8 5s6.5-2.1 8-5c-1.5-2.9-4.5-5-8-5Zm0 8.3A3.3 3.3 0 1 1 8 4.7a3.3 3.3 0 0 1 0 6.6Z"/>
+            </svg>
+            <svg *ngIf="mostrarSenha" width="16" height="16" viewBox="0 0 16 16" fill="#6c757d">
+              <path d="M13.4 2.6 2.6 13.4l.9.9L4.7 13A9.5 9.5 0 0 0 8 13.6c3.5 0 6.5-2.1 8-5-.6-1.2-1.5-2.3-2.6-3.1l1.4-1.4-.9-.9ZM8 5.4c.4 0 .8.1 1.2.2L6.6 8.2A2.9 2.9 0 0 1 8 5.4Zm-5.6.2C1.3 6.4.5 7.1 0 8c.9 1.7 2.3 3.1 4 4l1.3-1.3A5.1 5.1 0 0 1 2.4 5.6Z"/>
+            </svg>
+          </span>
+        </div>
+
+        <div class="form-check form-switch d-flex justify-content-between align-items-center mb-4">
+          <label class="form-check-label" for="loginAutomatico">Logar automaticamente</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            role="switch"
+            id="loginAutomatico"
+            name="loginAutomatico"
+            [(ngModel)]="loginAutomatico"
+          />
+        </div>
+
+        <div class="alert alert-danger py-2 text-center" *ngIf="erro">{{ erro }}</div>
+
+        <button type="submit" class="btn btn-entrar w-100" [disabled]="carregando">
+          {{ carregando ? 'Entrando...' : 'Entrar' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
